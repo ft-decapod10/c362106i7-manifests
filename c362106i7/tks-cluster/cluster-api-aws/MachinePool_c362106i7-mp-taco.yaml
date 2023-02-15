@@ -1,0 +1,26 @@
+# Source: cluster-api-aws/templates/machine-pool.yaml
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachinePool
+metadata:
+  name: c362106i7-mp-taco
+  namespace: c362106i7
+spec:
+  clusterName: c362106i7
+  replicas: 3
+  template:
+    metadata:
+      labels:
+            servicemesh: enabled
+            taco-ingress-gateway: enabled
+            taco-lma: enabled
+    spec:
+      bootstrap:
+        dataSecretName: ""
+      clusterName: c362106i7
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta2
+        kind: AWSManagedMachinePool
+        name: c362106i7-mp-taco
+        namespace: c362106i7
+      version: v1.22.5
+

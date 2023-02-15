@@ -1,0 +1,28 @@
+# Source: cluster-api-aws/templates/machine-deployment.yaml
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineDeployment
+metadata:
+  name: c362106i7-eks-md-normal-0
+  namespace: c362106i7
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
+spec:
+  clusterName: c362106i7
+  replicas: 1
+  template:
+    spec:
+      bootstrap:
+        configRef:
+          apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+          kind: EKSConfigTemplate
+          name: c362106i7-eks-md-normal
+      clusterName: c362106i7
+      failureDomain: ap-northeast-2a
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: AWSMachineTemplate
+        name: c362106i7-md-normal
+      version: v1.22.5
+  selector:
+        matchLabels: null
